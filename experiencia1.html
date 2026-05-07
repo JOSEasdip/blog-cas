@@ -390,10 +390,14 @@
       <h2 class="sec-title">Formato Experiencia</h2>
       <div class="divider"></div>
 
-      <div class="pdf-box" id="pdfBox">
-        <!-- Reemplaza "tu-archivo.pdf" por el nombre real de tu PDF en la carpeta img/ -->
-        <!-- Si aún no tienes el PDF, el placeholder aparecerá automáticamente -->
-        <iframe src="img/Experienciapdf1.pdf" id="pdfFrame" title="Presentación PDF"></iframe>
+      <div class="pdf-box">
+        <!-- Vista escritorio -->
+        <iframe src="img/Experienciapdf1.pdf" title="PDF" class="pdf-desktop"></iframe>
+        <!-- Vista móvil -->
+        <div class="pdf-mobile">
+        <span>📄</span>
+        <p>El PDF no es compatible con este dispositivo.</p>
+        <a href="img/Experienciapdf1.pdf" target="_blank">Abrir PDF →</a>
       </div>
     </div>
 
