@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cocinando esperanza – Blog CAS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --yellow: #F5C400;
+      --red:    #E03030;
+      --blue:   #1A5EAB;
+      --dark:   #0D0F14;
+      --card:   #12151C;
+      --surface:#1A1E28;
+      --muted:  #8893A8;
+      --light:  #EEF1F8;
+      --radius: 14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Sora', sans-serif; background: var(--dark); color: var(--light); line-height: 1.7; }
+
+    /* NAVBAR */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 62px;
+      background: rgba(13,15,20,.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-back {
+      display: flex; align-items: center; gap: .6rem;
+      font-size: .85rem; font-weight: 700; color: var(--muted);
+      text-decoration: none; transition: color .3s;
+    }
+    .nav-back:hover { color: var(--yellow); }
+    .nav-title { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--light); }
+
+    /* HERO */
+    .hero { padding: 70px 5% 50px; max-width: 900px; margin: 0 auto; }
+    .tag {
+      display: inline-block;
+      background: rgba(245,196,0,.15); border: 1px solid rgba(245,196,0,.35);
+      color: var(--yellow); font-size: .72rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.1; margin-bottom: 1.4rem;
+    }
+    .ra-box {
+      background: var(--card); border-left: 4px solid var(--yellow);
+      border-radius: var(--radius); padding: 1.2rem 1.6rem; margin-bottom: 2rem;
+    }
+    .ra-box .ra-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--yellow); margin-bottom: .4rem;
+    }
+    .ra-box p { font-size: .92rem; color: var(--muted); }
+    .text-block {
+      background: var(--card); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius); padding: 1.4rem 1.8rem;
+      font-size: .95rem; color: var(--muted); line-height: 1.8;
+    }
+
+    /* PÁGINA */
+    .page { max-width: 900px; margin: 0 auto; padding: 0 5% 80px; }
+    .section-block { margin-bottom: 3rem; }
+    .sec-label { font-size: .7rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+    .sec-title { font-family: 'DM Serif Display', serif; font-size: 1.7rem; margin-bottom: 1rem; }
+    .divider { width: 50px; height: 3px; background: linear-gradient(90deg, var(--yellow), var(--red)); border-radius: 2px; margin-bottom: 1.4rem; }
+
+    /* ETAPAS */
+    .etapas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .etapa-card {
+      background: var(--card); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: transform .3s, border-color .3s;
+    }
+    .etapa-card:hover { transform: translateY(-5px); border-color: rgba(245,196,0,.3); }
+    .etapa-card .etapa-icon { font-size: 1.6rem; margin-bottom: .7rem; }
+    .etapa-card h4 { font-size: 1rem; margin-bottom: .6rem; }
+    .etapa-card p { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+    .etapa-card ul { padding-left: 1.2rem; }
+    .etapa-card ul li { font-size: .85rem; color: var(--muted); margin-bottom: .3rem; }
+
+    /* DEMOSTRACIÓN */
+    .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; margin-bottom: 1.2rem; }
+    .demo-video { margin-bottom: 1.2rem; }
+
+    .demo-img {
+      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius); overflow: hidden; transition: transform .3s;
+    }
+    .demo-img:hover { transform: scale(1.02); }
+    .demo-img .img-box {
+      height: 180px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .5rem; color: var(--muted);
+      font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+      position: relative; overflow: hidden;
+    }
+    .demo-img .img-box img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .demo-img .img-box .placeholder { display:flex; flex-direction:column; align-items:center; gap:.4rem; position:relative; z-index:1; }
+    .demo-img .img-box .placeholder span { font-size: 2rem; }
+    .demo-img-label { padding: .8rem 1rem; font-size: .78rem; color: var(--muted); }
+    .demo-img-label a { color: var(--yellow); font-weight: 700; font-size: .78rem; text-decoration: underline; }
+
+    /* Video vertical */
+    .video-box {
+      background: var(--surface); border: 1px solid rgba(255,255,255,.07);
+      border-radius: var(--radius); overflow: hidden; max-width: 320px;
+    }
+    .video-box .video-inner {
+      height: 520px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: .8rem; color: var(--muted); position: relative; background: #000;
+    }
+    .video-box .video-inner video { width: auto; height: 100%; max-width: 100%; object-fit: contain; position: relative; border-radius: var(--radius); }
+    .video-box .video-inner .placeholder { display:flex; flex-direction:column; align-items:center; gap:.6rem; position:relative; z-index:1; }
+    .video-box .video-inner .placeholder span { font-size: 3rem; }
+    .video-box .video-inner .placeholder p { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+    .video-label { padding: .8rem 1rem; font-size: .78rem; color: var(--muted); }
+
+    /* PORCENTAJES */
+    .porcentajes { display: flex; flex-direction: column; gap: 1rem; }
+    .porc-row { display: flex; flex-direction: column; gap: .4rem; }
+    .porc-row .porc-label { display: flex; justify-content: space-between; font-size: .85rem; font-weight: 600; }
+    .porc-bar { height: 10px; background: rgba(255,255,255,.08); border-radius: 5px; overflow: hidden; }
+    .porc-fill { height: 100%; border-radius: 5px; transition: width 1s ease; }
+    .fill-y { background: var(--yellow); }
+    .fill-r { background: var(--red); }
+    .fill-b { background: var(--blue); }
+
+    /* PDF */
+    .pdf-box { background: var(--card); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); overflow: hidden; }
+    .pdf-desktop { width:100%; height:520px; border:none; display:block; }
+    .pdf-mobile { display:none; padding:2rem; text-align:center; color:var(--muted); }
+    .pdf-mobile span { font-size:3rem; display:block; margin-bottom:1rem; }
+    .pdf-mobile a { color:var(--yellow); font-weight:700; }
+
+    @media (max-width: 768px) {
+      .pdf-desktop { display:none; }
+      .pdf-mobile { display:block; }
+    }
+    @media (max-width: 600px) {
+      .etapas-grid { grid-template-columns: 1fr; }
+      .demo-grid { grid-template-columns: 1fr 1fr; }
+      .video-box { max-width: 100%; }
+      .video-box .video-inner { height: 380px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="nav-back">← Volver al Blog</a>
+    <span class="nav-title">Experiencias CAS</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="tag">⭐ Experiencia CAS</span>
+    <h1>Cocinando esperanza</h1>
+
+    <div class="ra-box">
+      <div class="ra-label">🎯 Resultado de aprendizaje</div>
+      <p>Nº5 — Mostrar habilidades de trabajo en equipo y reconocer los beneficios del trabajo colaborativo.</p>
+    </div>
+
+    <div class="text-block">
+      Esta experiencia la hice de manera grupal, pues es más fácil debido a que debíamos preparar grandes
+      cantidades de arroz chaufa. El alimento lo repartimos en el hospital Casimiro Ulloa a los familiares de
+      los pacientes en emergencias, que esperan por horas en el frío de la noche por noticias. Nos animamos a
+      disminuir las angustias de las personas con un poco de rico chaufa, ya que algunas ni comen, puesto a
+      que no se mueven por el miedo de que pase algo.
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="page">
+
+    <!-- ETAPAS -->
+    <div class="section-block">
+      <div class="sec-label">✦ Proceso</div>
+      <h2 class="sec-title">Etapas de CAS</h2>
+      <div class="divider"></div>
+
+      <div class="etapas-grid">
+
+        <div class="etapa-card">
+          <div class="etapa-icon">🔍</div>
+          <h4>Investigación</h4>
+          <ul>
+            <li>¿Cómo se prepara el arroz chaufa?</li>
+            <li>¿Qué ingredientes necesita el arroz chaufa?</li>
+            <li>¿Dónde se ubica un hospital con pacientes de emergencia?</li>
+          </ul>
+        </div>
+
+        <div class="etapa-card">
+          <div class="etapa-icon">📋</div>
+          <h4>Preparación</h4>
+          <p>Primero acordamos trabajar juntos en esta experiencia y en qué casa íbamos a realizarla. Luego, conseguimos todos los ingredientes necesarios para preparar el arroz chaufa y los recipientes descartables para repartir. Por último, coordinamos el día que haríamos la experiencia.</p>
+        </div>
+
+        <div class="etapa-card">
+          <div class="etapa-icon">⚡</div>
+          <h4>Acción</h4>
+          <p>Nos juntamos el día 17 de abril en la casa de uno de mis compañeros que quedaba cerca del hospital. Organizamos los ingredientes en la mesa y nos repartimos tareas, a mí me tocó freír el huevo, el chancho y cortar la cebolla china. Luego de 2 horas terminamos el plato. Después, alistamos la comida en tapers descartables, en total quedaron 10, y lo colocamos en un cooler junto con una Coca-Cola, vasos y cubiertos descartables. Por último, lo repartimos a los familiares de los pacientes y algunos guardias de seguridad.</p>
+        </div>
+
+        <div class="etapa-card" style="border-color:rgba(245,196,0,.2);">
+          <div class="etapa-icon">💭</div>
+          <h4>Reflexión</h4>
+          <p>Yo nunca supe que en el hospital Casimiro Ulloa, que está cerca de mi casa, los familiares de los enfermos de emergencia se quedaban horas y hasta días esperando a que su familia salga sana y viva. Cuando me enteré sabía que debía apoyar puesto que conozco la situación por la que pasan, entonces aprovechando CAS pude reunirme con mis amigos para apoyar en mayor medida.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DEMOSTRACIÓN -->
+    <div class="section-block">
+      <div class="sec-label">✦ Evidencias</div>
+      <h2 class="sec-title">Demostración</h2>
+      <div class="divider"></div>
+
+      <!-- Video vertical -->
+      <div class="demo-video">
+        <div class="video-box">
+          <div class="video-inner">
+            <!-- Reemplaza "img/video-chaufa.mp4" por tu video real -->
+            <video src="img/video-chaufa.mp4" controls onerror="this.style.display='none'"></video>
+            <div class="placeholder">
+              <span>🎥</span>
+              <p>img/video-chaufa.mp4</p>
+            </div>
+          </div>
+          <div class="video-label">Video de la experiencia</div>
+        </div>
+      </div>
+
+      <!-- 5 imágenes -->
+      <div class="demo-grid">
+
+        <div class="demo-img">
+          <div class="img-box">
+            <img src="img/chaufa1.jpg" alt="Foto 1" onerror="this.style.display='none'" />
+            <div class="placeholder"><span>📸</span><p>img/chaufa1.jpg</p></div>
+          </div>
+          <div class="demo-img-label">Foto 1</div>
+        </div>
+
+        <div class="demo-img">
+          <div class="img-box">
+            <img src="img/chaufa2.jpg" alt="Foto 2" onerror="this.style.display='none'" />
+            <div class="placeholder"><span>📸</span><p>img/chaufa2.jpg</p></div>
+          </div>
+          <div class="demo-img-label">Foto 2</div>
+        </div>
+
+        <div class="demo-img">
+          <div class="img-box">
+            <img src="img/chaufa3.jpg" alt="Foto 3" onerror="this.style.display='none'" />
+            <div class="placeholder"><span>📸</span><p>img/chaufa3.jpg</p></div>
+          </div>
+          <div class="demo-img-label">Foto 3</div>
+        </div>
+
+        <div class="demo-img">
+          <div class="img-box">
+            <img src="img/chaufa4.jpg" alt="Foto 4" onerror="this.style.display='none'" />
+            <div class="placeholder"><span>📸</span><p>img/chaufa4.jpg</p></div>
+          </div>
+          <div class="demo-img-label">Foto 4</div>
+        </div>
+
+        <div class="demo-img">
+          <div class="img-box">
+            <img src="img/chaufa5.jpg" alt="Foto 5" onerror="this.style.display='none'" />
+            <div class="placeholder"><span>📸</span><p>img/chaufa5.jpg</p></div>
+          </div>
+          <div class="demo-img-label">Foto 5</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PORCENTAJES -->
+    <div class="section-block">
+      <div class="sec-label">✦ Distribución</div>
+      <h2 class="sec-title">Porcentajes CAS</h2>
+      <div class="divider"></div>
+
+      <div class="text-block">
+        <div class="porcentajes">
+
+          <div class="porc-row">
+            <div class="porc-label">
+              <span>🎨 Creatividad</span>
+              <span style="color:var(--yellow)">0%</span>
+            </div>
+            <div class="porc-bar"><div class="porc-fill fill-y" style="width:0%"></div></div>
+          </div>
+
+          <div class="porc-row">
+            <div class="porc-label">
+              <span>⚡ Actividad</span>
+              <span style="color:#ff6b6b">40%</span>
+            </div>
+            <div class="porc-bar"><div class="porc-fill fill-r" style="width:40%"></div></div>
+          </div>
+
+          <div class="porc-row">
+            <div class="porc-label">
+              <span>🤝 Servicio</span>
+              <span style="color:#6bb0ff">60%</span>
+            </div>
+            <div class="porc-bar"><div class="porc-fill fill-b" style="width:60%"></div></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PDF -->
+    <div class="section-block">
+      <div class="sec-label">✦ Documento</div>
+      <h2 class="sec-title">Formato PDF</h2>
+      <div class="divider"></div>
+
+      <div class="pdf-box">
+        <!-- Reemplaza "img/presentacion3.pdf" por el nombre real de tu PDF -->
+        <iframe src="img/presentacion3.pdf" title="PDF Experiencia 3" class="pdf-desktop"></iframe>
+        <div class="pdf-mobile">
+          <span>📄</span>
+          <p>El PDF no es compatible con este dispositivo.</p>
+          <a href="img/presentacion3.pdf" target="_blank">Abrir PDF →</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+</body>
+</html>
